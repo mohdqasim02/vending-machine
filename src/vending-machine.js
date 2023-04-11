@@ -1,5 +1,5 @@
-const zero = 0;
-const one = 1;
+const coins = function(denomination) {
+  return denomination;
+}
 
-exports.zero = zero;
-exports.one = 1;
+exports.coins = coins;
