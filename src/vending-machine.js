@@ -1,5 +1,11 @@
 const countOptimumCoins = function(denomination) {
-  return Math.floor(denomination / 2) + (denomination % 2); 
+  let leftOverAmount = denomination;
+  let coins = Math.floor(leftOverAmount / 5);
+
+  leftOverAmount = leftOverAmount % 5;
+  coins += Math.floor(leftOverAmount / 2) + (leftOverAmount % 2);
+
+  return coins;
 }
 
 const dispenseCoins = function(denomination) {
