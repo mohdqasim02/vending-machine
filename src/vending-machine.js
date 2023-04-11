@@ -2,8 +2,8 @@ const calculateRemainingAmount = function(amount, denomination) {
   return amount % denomination;
 }
 
-const countTenRupeeCoin = function(amount) {
-  return Math.floor(amount / 10);
+const countCoins = function(amount, denomination) {
+  return Math.floor(amount / denomination);
 }
 
 const countFiveRupeeCoin = function(amount) {
@@ -16,19 +16,30 @@ const countTwoRupeeCoin = function(amount) {
 
 
 const countOptimumCoins = function(amount) {
+  const denominations = [1, 2, 5, 10];
   let leftOverAmount = amount;
   let coins = 0;
 
-  coins = countTenRupeeCoin(leftOverAmount);
-  leftOverAmount = calculateRemainingAmount(leftOverAmount, 10);
+  for (let index = denominations.length - 1; index >= 0; index--) {
+    if (leftOverAmount === 0) break;
 
-  coins += countFiveRupeeCoin(leftOverAmount);
-  leftOverAmount = calculateRemainingAmount(leftOverAmount, 5);
+    const currentDenomination = denominations[index];
+    coins += countCoins(leftOverAmount, currentDenomination);
+    leftOverAmount = calculateRemainingAmount(leftOverAmount, currentDenomination);
+  }
 
-  coins += countTwoRupeeCoin(leftOverAmount);
-  leftOverAmount = calculateRemainingAmount(leftOverAmount, 2);
+  return coins;
 
-  return coins + leftOverAmount;
+  //   coins = countTenRupeeCoin(leftOverAmount);
+  //   leftOverAmount = calculateRemainingAmount(leftOverAmount, 10);
+  // 
+  //   coins += countFiveRupeeCoin(leftOverAmount);
+  //   leftOverAmount = calculateRemainingAmount(leftOverAmount, 5);
+  // 
+  //   coins += countTwoRupeeCoin(leftOverAmount);
+  //   leftOverAmount = calculateRemainingAmount(leftOverAmount, 2);
+  // 
+  //   return coins + leftOverAmount;
 }
 
 const dispenseCoins = function(denomination) {
