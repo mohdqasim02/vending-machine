@@ -1,5 +1,9 @@
-const coins = function(denomination) {
-  return denomination;
+const countOptimumCoins = function(denomination) {
+  return Math.floor(denomination / 2) + (denomination % 2); 
 }
 
-exports.coins = coins;
+const dispenseCoins = function(denomination) {
+  return countOptimumCoins(denomination);
+}
+
+exports.dispenseCoins = dispenseCoins;

@@ -6,17 +6,21 @@ const assertEquals = testing.assertEquals;
 const summary = testing.summary;
 const title = testing.title;
 
-const coins = vendingMachine.coins;
+const dispenseCoins = vendingMachine.dispenseCoins;
 
-const testCoins = function() {
-  assertEquals(0, coins(0), "Zero rupees should return zero coins");
-  assertEquals(10, coins(10), "Denominations other than zero should return coins equal to the Denomination number");
+const testdispenseCoins = function() {
+  assertEquals(0, dispenseCoins(0), "Zero rupees should return zero coin");
+  assertEquals(1, dispenseCoins(1), "One rupee should return one coin");
+  assertEquals(1, dispenseCoins(2), "Two rupees should return one coins");
+  assertEquals(2, dispenseCoins(3), "Three rupees should return two coins");
+  assertEquals(4, dispenseCoins(8), "Even denominations should return (denominations / 2) coins");
+  assertEquals(5, dispenseCoins(9), "Odd denominations should return (denominations / 2) plus one coins");
   summary();
 }
 
 
 const test = function() {
-  testCoins();
+  testdispenseCoins();
 }
 
 test();
