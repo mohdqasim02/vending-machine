@@ -6,15 +6,25 @@ const countCoins = function(amount, denomination) {
   return Math.floor(amount / denomination);
 }
 
+const copyList = function(list) {
+  const newList = [];
+
+  for (let index = 0; index < list.length; index++) {
+    newList.push(list[index]);
+  }
+
+  return newList;
+}
+
 const sortAscending = function(list) {
-  const sortedList = list;
+  const sortedList = copyList(list);
 
   for (let i = 0; i < sortedList.length - 1; i++){
     for (let j = i + 1; j < sortedList.length; j++) {
       if (sortedList[i] > sortedList[j]){
-        const temp = sortedList[i];
+        const firstNum = sortedList[i];
         sortedList[i] = sortedList[j];
-        sortedList[j] = temp;
+        sortedList[j] = firstNum;
       }
     }
   }
