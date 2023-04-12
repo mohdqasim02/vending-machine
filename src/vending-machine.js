@@ -42,3 +42,4 @@ const dispenseCoins = function(amount, denominations) {
 }
 
 exports.dispenseCoins = dispenseCoins;
+exports.sortAscending = sortAscending;
