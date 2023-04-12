@@ -6,23 +6,25 @@ const countCoins = function(amount, denomination) {
   return Math.floor(amount / denomination);
 }
 
-const sort = function(list) {
-  for (let i = 0; i < list.length - 1; i++){
-    for (let j = i + 1; j < list.length; j++) {
-      if (list[i] > list[j]){
-        const temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
+const sortAscending = function(list) {
+  const sortedList = list;
+
+  for (let i = 0; i < sortedList.length - 1; i++){
+    for (let j = i + 1; j < sortedList.length; j++) {
+      if (sortedList[i] > sortedList[j]){
+        const temp = sortedList[i];
+        sortedList[i] = sortedList[j];
+        sortedList[j] = temp;
       }
     }
   }
-  return list
+  return sortedList;
 }
 
 const countOptimumCoins = function(amount, denominations) {
   let leftOverAmount = amount;
   let coins = 0;
-  const sortedDenominations = sort(denominations);
+  const sortedDenominations = sortAscending(denominations);
 
   for (let index = sortedDenominations.length - 1; index >= 0; index--) {
     if (leftOverAmount === 0) break;
