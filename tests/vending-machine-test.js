@@ -19,10 +19,12 @@ const testdispenseCoins = function() {
   assertEquals(3, dispenseCoins(8, [1, 2, 5, 10]), "8 rupees should return 3 coins");
   assertEquals(3, dispenseCoins(9, [1, 2, 5, 10]), "9 rupees should return 3 coins");
   assertEquals(4, dispenseCoins(18, [1, 2, 5, 10]), "18 rupees should return 4 coins");
-  assertEquals(5, dispenseCoins(18, [1, 2, 5]), "18 rupees should return 5 coins of denominations [1, 2, 5]");
+  assertEquals(5, dispenseCoins(18, [1, 2, 5]), "18 rupees should return 5 coins");
   assertEquals(9, dispenseCoins(18, [1, 2]), "18 rupees should return 9 coins of two");
   assertEquals(3, dispenseCoins(18, [5]), "18 rupees should return 3 coins of five");
-  assertEquals(4, dispenseCoins(13, [1, 4, 7]), "13 rupees should return 4 coins");
+  assertEquals(4, dispenseCoins(13, [7, 4, 1]), "13 rupees should return 4 coins");
+  assertEquals(5, dispenseCoins(18, [5, 2, 1]), "18 rupees should return 5 coins");
+  assertEquals(5, dispenseCoins(18, [5, 1, 2]), "18 rupees should return 5 coins");
   summary();
 }
 
