@@ -2,6 +2,7 @@ const testing = require('../lib/test-framework.js');
 const vendingMachine = require('../src/vending-machine.js');
 
 const assertArrayEquals = testing.assertArrayEquals;
+const assertObjectEquals = testing.assertObjectEquals;
 const assertEquals = testing.assertEquals;
 const summary = testing.summary;
 const title = testing.title;
