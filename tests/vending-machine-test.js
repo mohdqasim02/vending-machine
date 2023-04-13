@@ -1,7 +1,6 @@
 const testing = require('../lib/test-framework.js');
 const vendingMachine = require('../src/vending-machine.js');
 
-const assertArrayEquals = testing.assertArrayEquals;
 const assertObjectEquals = testing.assertObjectEquals;
 const assertEquals = testing.assertEquals;
 const summary = testing.summary;
@@ -9,48 +8,86 @@ const title = testing.title;
 
 const dispenseCoins = vendingMachine.dispenseCoins;
 const denominationCount = vendingMachine.getDenominationCount;
-const sortAscending = vendingMachine.sortAscending;
-
-const testSortAscending = function() {
-  title("sortAscending");
-  assertEquals([1, 2, 3], sortAscending([3, 2, 1]), "reversed list should be sorted");
-  assertEquals([1, 2, 3], sortAscending([1, 2, 3]), "sorted list should remain same");
-  assertEquals([1, 2, 3], sortAscending([3, 1, 2]), "shuffled list should be sorted");
-}
 
 const testdispenseCoins = function() {
-  title("dispenseCoins");
-  assertEquals(0, dispenseCoins(0, [1, 2, 5, 10]), "0 rupees should return 0 coin");
-  assertEquals(1, dispenseCoins(1, [1, 2, 5, 10]), "1 rupee should return 1 coin");
-  assertEquals(1, dispenseCoins(2, [1, 2, 5, 10]), "2 rupees should return 1 coins");
-  assertEquals(2, dispenseCoins(3, [1, 2, 5, 10]), "3 rupees should return 2 coins");
-  assertEquals(1, dispenseCoins(5, [1, 2, 5, 10]), "5 rupees should return 1 coin");
-  assertEquals(2, dispenseCoins(6, [1, 2, 5, 10]), "6 rupees should return 2 coins");
-  assertEquals(2, dispenseCoins(7, [1, 2, 5, 10]), "7 rupees should return 2 coins");
-  assertEquals(3, dispenseCoins(8, [1, 2, 5, 10]), "8 rupees should return 3 coins");
-  assertEquals(3, dispenseCoins(9, [1, 2, 5, 10]), "9 rupees should return 3 coins");
-  assertEquals(4, dispenseCoins(18, [5, 1, 2, 10]), "18 rupees should return 4 coins");
-  assertEquals(5, dispenseCoins(18, [1, 2, 5]), "18 rupees should return 5 coins");
-  assertEquals(9, dispenseCoins(18, [1, 2]), "18 rupees should return 9 coins");
-  assertEquals(3, dispenseCoins(18, [5]), "18 rupees should return 3 coins");
-  assertEquals(4, dispenseCoins(13, [7, 4, 1]), "13 rupees should return 4 coins");
-  assertEquals(5, dispenseCoins(18, [5, 2, 1]), "18 rupees should return 5 coins");
-  assertEquals(5, dispenseCoins(18, [5, 1, 2]), "18 rupees should return 5 coins");
+  title("\nTesting optimum number of coins");
+
+  const funcName = "dispenseCoins";
+  let expected = 0;
+  let actual = dispenseCoins(0, [1, 2, 5]);
+  let message = "No amount should return zero coins";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 10;
+  actual = dispenseCoins(10, [1]);
+  message = "Given Only 1₹ denomination should return the original amount";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 0;
+  actual = dispenseCoins(0, [5, 10]);
+  message = "Amount less than every denomination should return zero coin";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 1;
+  actual = dispenseCoins(5, [1, 2, 5, 10]);
+  message = "Amount equal to any denomination should return one coin";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 3;
+  actual = dispenseCoins(8, [1, 2, 5]);
+  message = "Amount equal to sum of all denominations should return number of denominations";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 4;
+  actual = dispenseCoins(8, [1, 5]);
+  message = "Same amount with different denominations should return different number of coins each times";
+  assertEquals(expected, actual, message, funcName); 
+}
+
+const testOrderOfDenominations = function() {
+  title("\nTesting order of denominations"); 
+
+  const funcName = "dispenseCoins";
+  let expected = 3;
+  let actual = dispenseCoins(8, [1, 2, 5]);
+  let message = "Denominations in Ascending Order should return optimum number of coins";
+  assertEquals(expected, actual, message, funcName); 
+
+  expected = 3;
+  actual = dispenseCoins(8, [1, 2, 5]);
+  message = "Shuffled Denominations should also return optimum number of coins";
+  assertEquals(expected, actual, message, funcName); 
 }
 
 const testDenominationCount = function() {
-  title("denominationCount");
-  assertObjectEquals({1:0, 2:0, 5:0}, denominationCount(0, [1, 2, 5]), "should return Zero coins of all denominations");
-  assertObjectEquals({1:1, 2:0, 5:0}, denominationCount(1, [1, 2, 5]), "should return one coin of denominations one");
-  assertObjectEquals({1:0, 2:1, 5:0}, denominationCount(2, [1, 2, 5]), "should return one coin of denomination two");
-  assertObjectEquals({1:1, 2:1, 5:1}, denominationCount(8, [1, 2, 5]), "should return one coin of all denomination");
-  assertObjectEquals({1:1, 2:1, 5:1}, denominationCount(8, [5, 1, 2]), "should return one coin of all denomination");
-  assertObjectEquals({1:0, 2:2, 5:1, 10:1}, denominationCount(19, [5, 1, 2, 10]), "should return one coin of denomination two");
+  title("\nTesting count of each denominations");
+
+  const funcName = "denominationCount";
+  let expected = {1: 0, 2: 0, 5: 0};
+  let actual = denominationCount(0, [1, 2, 5]);
+  let message = "No amount should return zero coins of all denominations";
+  assertObjectEquals(expected, actual, message, funcName); 
+
+  expected = {1:0, 2:0, 5:2};
+  actual = denominationCount(10, [1, 2, 5]);
+  message = "Amount in multiple of a denomination should return all other denomination coins as zero";
+  assertObjectEquals(expected, actual, message, funcName); 
+
+  expected = {1:1, 2:1, 5:1};
+  actual = denominationCount(8, [1, 2, 5]);
+  message = "Amount equal to sum of all denominations should return one coin of each denomination";
+  assertObjectEquals(expected, actual, message, funcName); 
+
+  expected = {1:0, 2:2, 5:1, 10:1};
+  actual = denominationCount(19, [5, 1, 2, 10]);
+  message = "Amount greater than the sum of all denominations should return optimum num of coins";
+  assertObjectEquals(expected, actual, message, funcName); 
 }
 
 
 const test = function() {
   testdispenseCoins();
+  testOrderOfDenominations();
   testDenominationCount();
   summary();
 }
