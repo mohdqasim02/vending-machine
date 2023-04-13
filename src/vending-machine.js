@@ -1,24 +1,12 @@
+const utility = require("./utility.js");
+const sortAscending = utility.bubbleSort;
+
 const calculateRemainingAmount = function(amount, denomination) {
   return amount % denomination;
 }
 
 const countCoins = function(amount, denomination) {
   return Math.floor(amount / denomination);
-}
-
-const sortAscending = function(list) {
-  const sortedList = list.slice(0);
-
-  for (let i = 0; i < sortedList.length - 1; i++){
-    for (let j = i + 1; j < sortedList.length; j++) {
-      if (sortedList[i] > sortedList[j]){
-        const firstNum = sortedList[i];
-        sortedList[i] = sortedList[j];
-        sortedList[j] = firstNum;
-      }
-    }
-  }
-  return sortedList;
 }
 
 const getDenominationCount = function(amount, denominations) {
@@ -50,5 +38,4 @@ const dispenseCoins = function(amount, denominations) {
 }
 
 exports.dispenseCoins = dispenseCoins;
-exports.sortAscending = sortAscending;
 exports.getDenominationCount = getDenominationCount;
