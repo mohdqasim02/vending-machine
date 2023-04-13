@@ -8,6 +8,7 @@ const summary = testing.summary;
 const title = testing.title;
 
 const dispenseCoins = vendingMachine.dispenseCoins;
+const denominationCount = vendingMachine.getDenominationCount;
 const sortAscending = vendingMachine.sortAscending;
 
 const testSortAscending = function() {
@@ -37,10 +38,20 @@ const testdispenseCoins = function() {
   assertEquals(5, dispenseCoins(18, [5, 1, 2]), "18 rupees should return 5 coins");
 }
 
+const testDenominationCount = function() {
+  title("denominationCount");
+  assertObjectEquals({1:0, 2:0, 5:0}, denominationCount(0, [1, 2, 5]), "should return Zero coins of all denominations");
+  assertObjectEquals({1:1, 2:0, 5:0}, denominationCount(1, [1, 2, 5]), "should return one coin of denominations one");
+  assertObjectEquals({1:0, 2:1, 5:0}, denominationCount(2, [1, 2, 5]), "should return one coin of denomination two");
+  assertObjectEquals({1:1, 2:1, 5:1}, denominationCount(8, [1, 2, 5]), "should return one coin of all denomination");
+  assertObjectEquals({1:1, 2:1, 5:1}, denominationCount(8, [5, 1, 2]), "should return one coin of all denomination");
+  assertObjectEquals({1:0, 2:2, 5:1, 10:1}, denominationCount(19, [5, 1, 2, 10]), "should return one coin of denomination two");
+}
+
 
 const test = function() {
-  testSortAscending();
   testdispenseCoins();
+  testDenominationCount();
   summary();
 }
 

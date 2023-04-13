@@ -21,25 +21,34 @@ const sortAscending = function(list) {
   return sortedList;
 }
 
-const countOptimumCoins = function(amount, denominations) {
+const getDenominationCount = function(amount, denominations) {
   const sortedDenominations = sortAscending(denominations);
   let leftOverAmount = amount;
-  let coins = 0;
+  let coins = {};
 
   for (let index = sortedDenominations.length - 1; index >= 0; index--) {
-    if (leftOverAmount === 0) break;
-
     const currentDenomination = sortedDenominations[index];
-    coins += countCoins(leftOverAmount, currentDenomination);
+    coins[currentDenomination] = countCoins(leftOverAmount, currentDenomination);
     leftOverAmount = calculateRemainingAmount(leftOverAmount, currentDenomination);
   }
 
   return coins;
 }
 
+const sumCoins = function(denominationsCount) {
+  let coins = 0;
+
+  for (coin of Object.values(denominationsCount)) {
+    coins += coin;
+  }
+
+  return coins;
+}
+
 const dispenseCoins = function(amount, denominations) {
-  return countOptimumCoins(amount, denominations);
+  return sumCoins(getDenominationCount(amount, denominations));
 }
 
 exports.dispenseCoins = dispenseCoins;
 exports.sortAscending = sortAscending;
+exports.getDenominationCount = getDenominationCount;
