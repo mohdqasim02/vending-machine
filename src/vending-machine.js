@@ -1,4 +1,4 @@
-const utility = require("./utility.js");
+const utility = require("../lib/array-utils.js");
 const sortAscending = utility.bubbleSort;
 
 const calculateRemainingAmount = function(amount, denomination) {

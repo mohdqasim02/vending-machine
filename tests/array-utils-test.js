@@ -1,5 +1,5 @@
 const testing = require('../lib/test-framework.js');
-const utility = require('../src/utility.js');
+const utility = require('../lib/array-utils.js');
 
 const assertEquals = testing.assertEquals;
 const summary = testing.summary;

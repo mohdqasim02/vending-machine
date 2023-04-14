@@ -10,7 +10,7 @@ const dispenseCoins = vendingMachine.dispenseCoins;
 const denominationCount = vendingMachine.getDenominationCount;
 
 const testdispenseCoins = function() {
-  title("\nTesting optimum number of coins");
+  title("Testing optimum number of coins");
 
   const funcName = "dispenseCoins";
   let expected = 0;
@@ -45,7 +45,7 @@ const testdispenseCoins = function() {
 }
 
 const testOrderOfDenominations = function() {
-  title("\nTesting order of denominations"); 
+  title("Testing order of denominations"); 
 
   const funcName = "dispenseCoins";
   let expected = 3;
@@ -60,7 +60,7 @@ const testOrderOfDenominations = function() {
 }
 
 const testDenominationCount = function() {
-  title("\nTesting count of each denominations");
+  title("Testing count of each denominations");
 
   const funcName = "denominationCount";
   let expected = {1: 0, 2: 0, 5: 0};
